@@ -72,5 +72,31 @@ const organization = {
  */
 function getEmployeesByPosition(organization, position) {
   // ...your code...
+
+const result = [];
+
+  function traverse(employees) {
+    for (const emp of employees) {
+      // Check current employee
+      if (emp.position === position) {
+        result.push({
+          id: emp.id,
+          name: emp.name,
+          position: emp.position,
+          department: emp.department,
+        });
+      }
+
+      // Traverse subordinates recursively
+      if (emp.subordinates && emp.subordinates.length > 0) {
+        traverse(emp.subordinates);
+      }
+    }
+  }
+
+  // Start traversal from top-level employees
+  traverse(organization.employees);
+
+  return result;
 }
 ```
